@@ -1,10 +1,13 @@
-// ¶Ô1½øĞĞÁË¸Ä½ø
-// µ±³öÏÖÖØ¸´×Ö·ûÊ±£¬´ÓµÚÒ»¸öÖØ¸´×Ö·ûµÄÏÂÒ»Î»ÖÃ¿ªÊ¼
-// ¿ÉÒÔ´ó´ó¼õĞ¡ÔËËãÁ¿
+// å¯¹1è¿›è¡Œäº†æ”¹è¿›
+// å½“å‡ºç°é‡å¤å­—ç¬¦æ—¶ï¼Œä»ç¬¬ä¸€ä¸ªé‡å¤å­—ç¬¦çš„ä¸‹ä¸€ä½ç½®å¼€å§‹
+// å¯ä»¥å¤§å¤§å‡å°è¿ç®—é‡
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) 
 	{
+		if(s.length() == 0)
+		   return 0;
+	        
 		int res = 1;
 		int flags[256] = {0};
 		int start = 0;
@@ -12,15 +15,19 @@ public:
 		{
 			if(flags[s[i]])
 			{
-				res = (res > i - start + 1) ? res : i - start + 1;
+				res = (res > i - start) ? res : i - start;
 				while(start < s.length() && s[start] != s[i])
+				{
+				    flags[s[start]] = 0;
 					++start;
+				}
 				++start;
 			}
 			else
 				flags[s[i]] = 1;
 			
 		}
-		return res;
+		res = res > s.length() - start ? res : s.length() - start;
+		return res ;
     }
 };
